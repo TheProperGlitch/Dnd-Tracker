@@ -5,11 +5,18 @@ def c_edit():
 
 def c_make():
     creature = {}
-    print("What would you like to name the creature? (The name must be lowercase and have no spaces.) \n (Example: bobby)")
+    print("What would you like to name the creature? (The name must be lowercase and have no spaces.) \n(Example: bobby)")
     creature["name"] = input("")
     print("How many points of health would you like to give this creature? \n(The health must be a full integer made with number symbols) \n(Example: 592)")
     creature["health"] = int(input(""))
-    print("What is this creature's order in the initative.")
+    print("What is this creature's order in the initative. (The initative must be a full integer made with number symbols) \n(Example: 17)")
+    creature["initative"] = int(input(""))
+    print("Is there any notes you would like to add? (Write plain text or leave empty) \n(Example: Will fly in 5 turns. Attacks in one turn.)")
+    creature["notes"] = input("")
+    print("Would you like to pre-make actions. (Y for yes, N for no)")
+    choice3 = input("")
+    if choice3.lower() == "y":
+        print("")
 def c_copy():
     print("")
 
