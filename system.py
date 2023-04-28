@@ -1,8 +1,11 @@
 import os
+import json
 
+#Editting a creature:
 def c_edit():
     print("")
 
+#Making a new creature:
 def c_make():
     creature = {}
     print("What would you like to name the creature? (The name must be lowercase and have no spaces.) \n(Example: bobby)")
@@ -16,22 +19,34 @@ def c_make():
     print("Would you like to pre-make actions. (Y for yes, N for no)")
     choice3 = input("")
     if choice3.lower() == "y":
-        print("")
+        print("Sorry, but this feature is still under development.")
+    with open(f"({name})","w"):
+        ""
+    
+
+#Copying a creature that has already been made
 def c_copy():
     print("")
 
+#Making an encounter
 def e_make():
     print("")
-
+#Copying an encounter that has already been made
 def e_copy():
     print("")
-
+#Editing an encounter that has already been made
 def e_edit():
     print("")
 
+#Using a made encounter
 def e_use():
     print("")
 
+#Start of code:
+name = "Username####"
+# ---Grab the discord user's ID and save it to the variable "name"---
+uses = 0
+# ---
 print("Hello and welcome to the AV D&D Tracker. Start off by picking between managing creatures/characters or encounters. \n(C for Creatures, E for Encounters)")
 choice1 = input("")
 if choice1.lower() == "c":
