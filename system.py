@@ -8,6 +8,7 @@ def c_edit():
 #Making a new creature:
 def c_make():
     creature = {}
+    creature_list = []
     print("What would you like to name the creature? (The name must be lowercase and have no spaces.) \n(Example: bobby)")
     creature["name"] = input("")
     print("How many points of health would you like to give this creature? \n(The health must be a full integer made with number symbols) \n(Example: 592)")
@@ -16,12 +17,20 @@ def c_make():
     creature["initative"] = int(input(""))
     print("Is there any notes you would like to add? (Write plain text or leave empty) \n(Example: Will fly in 5 turns. Attacks in one turn.)")
     creature["notes"] = input("")
-    print("Would you like to pre-make actions. (Y for yes, N for no)")
-    choice3 = input("")
-    if choice3.lower() == "y":
-        print("Sorry, but this feature is still under development.")
-    with open(f"({name})","w"):
-        ""
+    if f"{name}.txt" in files:
+        with open(f"{name}.txt", "r") as file:
+            data = file.read()
+        print(data)
+        exec(data)
+        print(creature_list)
+        creature_list.append(creature)
+        with open(f"{name}.txt", "w") as file:
+            file.write(f"creature_list = {creature_list}")
+    else:
+        with open(f"{name}.txt", "w") as file:
+            file.write(f"creature_list = [{creature}]")
+    print("Done!")
+        
     
 
 #Copying a creature that has already been made
@@ -43,10 +52,13 @@ def e_use():
     print("")
 
 #Start of code:
+files = os.listdir('.')
+files.remove("system.py")
+files.remove("Todo.txt")
+files.remove("README.md")
+files.remove(".gitignore")
 name = "Username####"
 # ---Grab the discord user's ID and save it to the variable "name"---
-uses = 0
-# ---
 print("Hello and welcome to the AV D&D Tracker. Start off by picking between managing creatures/characters or encounters. \n(C for Creatures, E for Encounters)")
 choice1 = input("")
 if choice1.lower() == "c":
