@@ -52,11 +52,7 @@ def e_use():
     print("")
 
 #Start of code:
-files = os.listdir('.')
-files.remove("system.py")
-files.remove("Todo.txt")
-files.remove("README.md")
-files.remove(".gitignore")
+files = os.listdir('Encounters')
 name = "Username####"
 # ---Grab the discord user's ID and save it to the variable "name"---
 print("Hello and welcome to the AV D&D Tracker. Start off by picking between managing creatures/characters or encounters. \n(C for Creatures, E for Encounters)")
