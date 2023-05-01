@@ -20,10 +20,10 @@ def c_make():
         with open(username+".py", "r") as file:
             data = file.read()
             exec(data)
-        creature_list[2] = creature
+        creature_list[0] = creature
         print(creature_list)
         with open(f"{username}.py", "w") as file:
-            file.write("creature_list = {"+{creature_list}+"}")
+            file.write(f"creature_list = {creature_list}")
     else:
         print("path 2")
         with open(f"{username}.py", "w") as file:
