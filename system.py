@@ -60,6 +60,7 @@ files.remove(".gitignore")
 name = "Username####"
 # ---Grab the discord user's ID and save it to the variable "name"---
 print("Hello and welcome to the AV D&D Tracker. Start off by picking between managing creatures/characters or encounters. \n(C for Creatures, E for Encounters)")
+print(files)
 choice1 = input("")
 if choice1.lower() == "c":
     print("Next choose between editing an existing creature, copying one that is made, or making a new one.\n(E for Edit, C for Copy, N for New)")
