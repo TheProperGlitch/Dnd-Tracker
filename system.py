@@ -4,11 +4,10 @@ os.chdir("People")
 #Editting a creature:
 def c_edit():
     print("")
-
 #Making a new creature:
 def c_make():
     creature = []
-    creature_list = []
+    creature_list = {}
     print("What would you like to name the creature? (The name must be lowercase and have no spaces.) \n(Example: bobby)")
     creature.append(input(""))
     print("How many points of health would you like to give this creature? \n(The health must be a full integer made with number symbols) \n(Example: 592)")
@@ -17,27 +16,22 @@ def c_make():
     creature.append(int(input("")))
     print("Is there any notes you would like to add? (Write plain text or leave empty) \n(Example: Will fly in 5 turns. Attacks in one turn.)")
     creature.append(input(""))
-    if f"{username}.txt" in files:
-        with open(f"{username}.txt", "r") as file:
+    if f"{username}.py" in files:
+        with open(username+".py", "r") as file:
             data = file.read()
-        print(data)
-        exec(data)
+            exec(data)
+        creature_list[2] = creature
         print(creature_list)
-        creature_list.append(creature)
-        with open(f"{username}.txt", "w") as file:
-            file.write(f"creature_list = {creature_list}")
+        with open(f"{username}.py", "w") as file:
+            file.write("creature_list = {"+{creature_list}+"}")
     else:
         print("path 2")
-        with open(f"{username}.txt", "w") as file:
-            file.write(f"creature_list = [{creature}]")
+        with open(f"{username}.py", "w") as file:
+            file.write("creature_list = {0:"+f"{creature}"+"}")
     print("Done!")
-        
-    
-
 #Copying a creature that has already been made
 def c_copy():
     print("")
-
 #Making an encounter
 def e_make():
     print("")
@@ -47,13 +41,12 @@ def e_copy():
 #Editing an encounter that has already been made
 def e_edit():
     print("")
-
 #Using a made encounter
 def e_use():
     print("")
 
 #Start of code:
-files = os.listdir('People')
+files = os.listdir('.')
 files.remove("null..txt")
 username = "Username####"
 # ---Grab the discord user's ID and save it to the variable "username"---
