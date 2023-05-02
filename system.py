@@ -1,6 +1,4 @@
 import os
-import json
-os.chdir("People")
 #Editting a creature:
 def c_edit():
     print("")
@@ -20,8 +18,8 @@ def c_make():
         with open(username+".py", "r") as file:
             data = file.read()
             exec(data)
-        creature_list[0] = creature
         print(creature_list)
+        creature_list[1] = creature
         with open(f"{username}.py", "w") as file:
             file.write(f"creature_list = {creature_list}")
     else:
@@ -46,6 +44,7 @@ def e_use():
     print("")
 
 #Start of code:
+os.chdir("People")
 files = os.listdir('.')
 files.remove("null..txt")
 username = "Username####"
