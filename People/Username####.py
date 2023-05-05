@@ -1,1 +1,0 @@
-creature_list = {0:['Hello', 1, 2, 'none']}

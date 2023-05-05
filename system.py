@@ -1,4 +1,5 @@
 import os
+import json
 #Editting a creature:
 def c_edit():
     print("")
@@ -14,17 +15,16 @@ def c_make():
     creature.append(int(input("")))
     print("Is there any notes you would like to add? (Write plain text or leave empty) \n(Example: Will fly in 5 turns. Attacks in one turn.)")
     creature.append(input(""))
-    if f"{username}.py" in files:
+    if f"{username}.json" in files:
         with open(username+".py", "r") as file:
-            data = file.read()
-            exec(data)
-        print(creature_list)
-        creature_list[1] = creature
-        with open(f"{username}.py", "w") as file:
-            file.write(f"creature_list = {creature_list}")
+            creature_list = json.load(file)
+            print(creature_list)
+        creature_list[3] = creature
+        with open(f"{username}.json", "w") as file:
+            json.dump(creature_list, file)
     else:
         print("path 2")
-        with open(f"{username}.py", "w") as file:
+        with open(f"{username}.json", "w") as file:
             file.write("creature_list = {0:"+f"{creature}"+"}")
     print("Done!")
 #Copying a creature that has already been made
