@@ -11,21 +11,26 @@ def c_make():
     creature.append(input(""))
     print("How many points of health would you like to give this creature? \n(The health must be a full integer made with number symbols) \n(Example: 592)")
     creature.append(int(input(""))) 
-    print("What is this creature's order in the initative. (The initative must be a full integer made with number symbols) \n(Example: 17)")
+    print("What is this creature's dexterity modifier. (The dexterity must be a full integer made with number symbols) \n(Example: 17)")
     creature.append(int(input("")))
     print("Is there any notes you would like to add? (Write plain text or leave empty) \n(Example: Will fly in 5 turns. Attacks in one turn.)")
     creature.append(input(""))
     if f"{username}.json" in files:
-        with open(username+".py", "r") as file:
-            creature_list = json.load(file)
-            print(creature_list)
-        creature_list[3] = creature
+        with open(username+".json", "r") as file:
+            user_objects = json.load(file)
+        creature_amount = user_objects["creature_amount"]
+        creature_amount += 1
+        creature_list = user_objects["creature_list"]
+        creature_list[creature_amount] = creature
+        user_objects["creature_list"] = creature_list
+        user_objects["creature_amount"] = creature_amount
         with open(f"{username}.json", "w") as file:
-            json.dump(creature_list, file)
+            json.dump(user_objects, file)
     else:
-        print("path 2")
+        creature_list = {1: creature}
+        user_objects = {"creature_amount" : 1, "creature_list" : creature_list, "encounter_amount" : 0, "encounter_list" : {}}
         with open(f"{username}.json", "w") as file:
-            file.write("creature_list = {0:"+f"{creature}"+"}")
+            json.dump(user_objects, file)
     print("Done!")
 #Copying a creature that has already been made
 def c_copy():
@@ -48,6 +53,7 @@ os.chdir("People")
 files = os.listdir('.')
 files.remove("null..txt")
 username = "Username####"
+user_objects = {}
 # ---Grab the discord user's ID and save it to the variable "username"---
 print("Hello and welcome to the AV D&D Tracker. Start off by picking between managing creatures/characters or encounters. \n(C for Creatures, E for Encounters)")
 choice1 = input("")
