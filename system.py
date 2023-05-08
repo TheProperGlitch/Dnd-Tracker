@@ -71,7 +71,30 @@ def c_make():
     print("Done!")
 #Copying a creature that has already been made
 def c_copy():
-    print("")
+    if f"{username}.json" in files:
+        with open(f"{username}.json", "r") as file:
+            user_objects = json.load(file)
+        if user_objects["creature_amount"] == 0:
+            print("Sorry, but it seems that you have no creatures to copy.")
+        else:
+            print("What creature would you like to copy?")
+            creature_amount = user_objects["creature_amount"]
+            creature_list = user_objects["creature_list"]
+            for i in range(creature_amount):
+                print(f"{i+1}: Name:{creature_list[str(i+1)][0]}, Health:{creature_list[str(i+1)][1]}, Dex Modifier:{creature_list[str(i+1)][2]} \n Notes:{creature_list[str(i+1)][3]}")
+            copying = int(input(""))
+            creature = creature_list[str(copying)]
+            creature_amount+=1
+            creature_list[creature_amount] = creature
+            user_objects["creature_amount"] = creature_amount
+            user_objects["creature_list"] = creature_list
+            with open(f"{username}.json", "w") as file:
+                json.dump(user_objects, file)
+            print("Done!")
+
+
+    else:
+        print("Sorry, but it seems that you have no creatures to copy.")
 #Making an encounter
 def e_make():
     print("")
