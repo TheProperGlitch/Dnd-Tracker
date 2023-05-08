@@ -97,7 +97,26 @@ def c_copy():
         print("Sorry, but it seems that you have no creatures to copy.")
 #Making an encounter
 def e_make():
-    print("")
+    print("Would you like to quick-make an encounter or be more detailed? (Q for quick make, D for detailed.) \nNote: Quick made encounters will not be saved.")
+    encounter_type = input("")
+    if encounter_type.lower() == "q":
+        print("How many creatures will there be in the encounter? (Number symbols only.)")
+        amount_of_creatures = int(input(""))
+        creatures = {}
+        for creature in range(amount_of_creatures):
+            print(f"Creature number {creature+1}")
+            print("What would you like to name this creature?")
+            name = input("")
+            print("How many health points should this creature have? (Number symbols only.)")
+            health = int(input(""))
+            print("What is the initiative of the creature? (Number symbols only.)")
+            initiative = int(input(""))
+            print("Any other information?")
+            notes = input("")
+            if name == "":
+                name = f"creature{creature}"
+            creatures[creature+1] = [name, health, initiative, notes]
+            
 #Copying an encounter that has already been made
 def e_copy():
     print("")
