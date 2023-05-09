@@ -103,6 +103,7 @@ def e_make():
         print("How many creatures will there be in the encounter? (Number symbols only.)")
         amount_of_creatures = int(input(""))
         creatures = {}
+        initiative_order = {}
         for creature in range(amount_of_creatures):
             print(f"Creature number {creature+1}")
             print("What would you like to name this creature?")
@@ -115,10 +116,18 @@ def e_make():
             notes = input("")
             if name == "":
                 name = f"creature{creature}"
-            creatures[creature+1] = [name, health, initiative, notes]
-            
+            creatures[creature+1] = [name, health, notes]
+            initiative_order[creature+1] = [initiative]
+        turn_order = sorted(initiative_order)
+        playing = True
+        turn = 0
+        while True:
+            print(f"It is {creatures[initiative_order][turn]}")
+            turn += 1
+            if turn == initiative_order:
+                turn = 0
 #Copying an encounter that has already been made
-def e_copy():
+def e_copy():  
     print("")
 #Editing an encounter that has already been made
 def e_edit():
