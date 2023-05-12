@@ -100,32 +100,37 @@ def e_make():
     print("Would you like to quick-make an encounter or be more detailed? (Q for quick make, D for detailed.) \nNote: Quick made encounters will not be saved.")
     encounter_type = input("")
     if encounter_type.lower() == "q":
-        print("How many creatures will there be in the encounter? (Number symbols only.)")
-        amount_of_creatures = int(input(""))
-        creatures = {}
-        initiative_order = {}
-        for creature in range(amount_of_creatures):
-            print(f"Creature number {creature+1}")
-            print("What would you like to name this creature?")
-            name = input("")
-            print("How many health points should this creature have? (Number symbols only.)")
-            health = int(input(""))
-            print("What is the initiative of the creature? (Number symbols only.)")
-            initiative = int(input(""))
-            print("Any other information?")
-            notes = input("")
-            if name == "":
-                name = f"creature{creature}"
-            creatures[creature+1] = [name, health, notes]
-            initiative_order[creature+1] = [initiative]
-        turn_order = sorted(initiative_order)
-        playing = True
+        print("How many creatures are there?")
+        amount_of_creatures=int(input(""))
         turn = 0
-        while True:
-            print(f"It is {creatures[initiative_order][turn]}")
+        initiative_tracking = {}
+        while turn < amount_of_creatures:
+            print("What is the creatures name?")
+            name = input('')
+            print("What is the creatures initiative? (Numbers only!)")
+            initiative = int(input(''))
+            while initiative in initiative_tracking:
+                print("I'm sorry, but two creatures cannot have the same initiative.\nWhat should the new initiative be?")
+                initiative = int(input(''))
+            print("What is the creatures health? (Numbers only!)")
+            health = input('')
+            print("What other notes do you have?")
+            notes = input('')
+            creature = [name, initiative, health, notes]
+            if health == "":
+                health = 1
+            initiative_tracking[initiative] = [creature]
             turn += 1
-            if turn == initiative_order:
-                turn = 0
+        playing = True
+        while playing:
+            for key in sorted (initiative_tracking.keys(), reverse=True):
+                print(f"It is {initiative_tracking[key][0][0]}'s turn! \nWhat would you like to do? \n Commands:(H: Heal, D: Damage, A: Attack, N: Next, E: End)")
+                action = input("")
+                if action.lower == "Heal":
+                    print("Heal")
+                elif action == ("End"):
+                    playing = False
+                    break
 #Copying an encounter that has already been made
 def e_copy():  
     print("")

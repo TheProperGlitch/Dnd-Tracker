@@ -2,17 +2,17 @@ In chronological order:
 
 1: Make basic functions:
     @TheProperGlitch:
-        - Making a character/creature
-        - Copying a C/C 
-        - Editing a C/C 
+        - Making a character/creature Done!
+        - Copying a C/C Done!
+        - Editing a C/C Done!
         - Making an encounter
         - Editing an encounter
         - Copying an encounter
         - Using an encounter
 2: Discord integration:
     @TheProperGlitch:
-        Make it so that creatures, characters, and encounters are saved in a json file
-        Make it so that a user can pull from their file and only their file
+        Make it so that creatures, characters, and encounters are saved in a json file Done!
+        Make it so that a user can pull from their file and only their file Done!
     @Pawos-Howl:
         Store the Discord name and number of the user as the variable name
         Format the code to make it work as a bot
