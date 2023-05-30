@@ -1,3 +1,4 @@
+print("This is a virus and if you go down any more I will hack your computer. \n \n \n \n \n")
 import os
 import json
 #Editting a creature:
@@ -149,11 +150,13 @@ def e_make():
                         active = False
     else:
         if f"{username}.json" in files:
+            print("Which creature would you like to add?")
             with open(f"{username}.json", "r") as file:
-                user_objects = json.dump()
-                creature_list = user_objects["creature_list"]
-                for creature in creature_list:
-                    "creature_list[c]"
+                user_objects = json.load(file)
+            creature_list = user_objects["creature_list"]
+            creature_amount = user_objects["creature_amount"]
+            for creature in range(creature_amount):
+                print(f"{str(creature+1)}: Name:{creature_list[creature+1][0]}, Health:{creature_list[creature+1][1]}, Initiative:{creature_list[creature+1][2]}, Notes:{creature_list[creature+1][3]}")
         else:
             print("Sorry, but it seems you have no creatures, please make some and then try again.")
                 
