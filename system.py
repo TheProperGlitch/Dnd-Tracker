@@ -124,25 +124,39 @@ def e_make():
         playing = True
         while playing:
             for key in sorted (initiative_tracking.keys(), reverse=True):
-                print(f"It is {initiative_tracking[key][0][0]}'s turn! \nWhat would you like to do? \nCommands:(H: Heal Self, D: Damage, A: Attack, N: Next, E: End)")
-                action = input("")
-                if action.lower() == "h":
-                    print(f"{initiative_tracking[key][0][0]} is at {initiative_tracking[key][0][2]} health.")
-                    print("For how much would you like heal for? (Integers only!)")
-                    health_healed = int(input(""))
-                    initiative_tracking[key][0][2] = str(health_healed + int(initiative_tracking[key][0][2]))
-                    print(f"{initiative_tracking[key][0][0]} is now at {initiative_tracking[key][0][2]} health.")
-                elif action.lower() == "d":
-                    print(f"{initiative_tracking[key][0][0]} is at {initiative_tracking[key][0][2]} health.")
-                    print("For how much damage would you like to do? (Integers only!)")
-                    damage_dealt = int(input(""))
-                    initiative_tracking[key][0][2] = str(int(initiative_tracking[key][0][2]) - damage_dealt)
-                    print(f"{initiative_tracking[key][0][0]} is now at {initiative_tracking[key][0][2]} health.")
-                elif action.lower() == "a":
-                    print("")
-                elif action.lower() == ("e"):
-                    playing = False
+                if playing == False:
                     break
+                active = True
+                while active:
+                    print(f"It is {initiative_tracking[key][0][0]}'s turn! \nWhat would you like to do? \nCommands:(H: Heal Self, D: Damage, N: Next, E: End)")
+                    action = input("")
+                    if action.lower() == "h":
+                        print(f"{initiative_tracking[key][0][0]} is at {initiative_tracking[key][0][2]} health.")
+                        print("For how much would you like heal for? (Integers only!)")
+                        health_healed = int(input(""))
+                        initiative_tracking[key][0][2] = str(health_healed + int(initiative_tracking[key][0][2]))
+                        print(f"{initiative_tracking[key][0][0]} is now at {initiative_tracking[key][0][2]} health.")
+                    elif action.lower() == "d":
+                        print(f"{initiative_tracking[key][0][0]} is at {initiative_tracking[key][0][2]} health.")
+                        print("For how much damage would you like to do? (Integers only!)")
+                        damage_dealt = int(input(""))
+                        initiative_tracking[key][0][2] = str(int(initiative_tracking[key][0][2]) - damage_dealt)
+                        print(f"{initiative_tracking[key][0][0]} is now at {initiative_tracking[key][0][2]} health.")
+                    elif action.lower() == "n": 
+                        active = False
+                    elif action.lower() == "e":
+                        playing = False
+                        active = False
+    else:
+        if f"{username}.json" in files:
+            with open(f"{username}.json", "r") as file:
+                user_objects = json.dump()
+                creature_list = user_objects["creature_list"]
+                for creature in creature_list:
+                    "creature_list[c]"
+        else:
+            print("Sorry, but it seems you have no creatures, please make some and then try again.")
+                
 #Copying an encounter that has already been made
 def e_copy():  
     print("")
