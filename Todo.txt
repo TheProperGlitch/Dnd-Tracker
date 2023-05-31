@@ -14,16 +14,14 @@ In chronological order:
         Make it so that creatures, characters, and encounters are saved in a json file Done!
         Make it so that a user can pull from their file and only their file Done!
     @Pawos-Howl:
-        Store the Discord name and number of the user as the variable name
+        Store the Discord userID of the user as the variable name
         Format the code to make it work as a bot
         Actually make it into a bot
 3: More development on it's function:
     @TheProperGlitch:
         -Healing and damaging
-        -Quick making an encounter
+        -Quick making an encounter Done!
         -Premade actions
-    @Pawos-Howl:
-        -Update the bot for the new changes or make it so the bot auto-updates
 4: Reworking (Optional and possibly unnecessary):
     @TheProperGlitch:
         -Simplify code to increase efficacy
@@ -34,6 +32,3 @@ In chronological order:
         -Add a donation feature
         -Maybe take a look at how to turn into a website
         -Advertise and grow
-
-
-

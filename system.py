@@ -150,16 +150,23 @@ def e_make():
                         active = False
     else:
         if f"{username}.json" in files:
-            print("Which creature would you like to add?")
             with open(f"{username}.json", "r") as file:
                 user_objects = json.load(file)
             creature_list = user_objects["creature_list"]
             creature_amount = user_objects["creature_amount"]
-            for creature in range(creature_amount):
-                print(f"{str(creature+1)}: Name:{creature_list[creature+1][0]}, Health:{creature_list[creature+1][1]}, Initiative:{creature_list[creature+1][2]}, Notes:{creature_list[creature+1][3]}")
+            non_added_list = creature_list.copy()
+            encounter = []
+            in_encounter = 0
+            while True:
+                print("Which creature would you like to add to the encounter? Integer only!")
+                for creature in range(len(non_added_list)):
+                    print(f"{str(creature+1)}: Name: {non_added_list[str(creature+1)][0]}, Health: {non_added_list[str(creature+1)][1]}, Initiative: {non_added_list[str(creature+1)][2]}, Notes: {non_added_list[str(creature+1)][3]}")
+                chosen = int(input())
+                encounter[in_encounter] = non_added_list(chosen-1)
+                non_added_list.remove(chosen-1)
         else:
             print("Sorry, but it seems you have no creatures, please make some and then try again.")
-                
+
 #Copying an encounter that has already been made
 def e_copy():  
     print("")
