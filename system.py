@@ -1,8 +1,22 @@
-print("This is a virus and if you go down any more I will hack your computer. \n \n \n \n \n")
 import os
 import json
+import random
 #Editting a creature:
 def c_edit():
+    """
+    Allows the user to edit a creature's attributes.
+
+    This function checks if the user has any creatures, prompts them to select a creature,
+    and then allows them to edit the creature's name, health, dexterity, or notes.
+    The edited information is then saved to a JSON file.
+
+    Raises:
+        FileNotFoundError: If the user does not have any creatures to edit.
+
+    Returns:
+        None
+    """
+    # Function code goes here
     if f"{username}.json" in files:
         with open(f"{username}.json", "r") as file:
             user_objects = json.load(file)
@@ -43,6 +57,18 @@ def c_edit():
         print("Sorry, but it seems that you have no creatures to look at.")
 #Making a new creature:
 def c_make():
+    """
+    Prompts the user to create a new creature and saves it to a JSON file.
+
+    This function guides the user to enter the name, health, dexterity, and notes of a new creature.
+    It then checks if the user already has a JSON file. If the file exists, it adds the new creature
+    to the existing creature list. If the file does not exist, it creates a new JSON file with the
+    creature as the first entry.
+
+    Returns:
+        None
+    """
+    # Function code goes here
     creature = []
     creature_list = {}
     print("What would you like to name the creature? (The name must be lowercase and have no spaces.) \n(Example: bobby)")
@@ -98,6 +124,17 @@ def c_copy():
         print("Sorry, but it seems that you have no creatures to copy.")
 #Making an encounter
 def e_make():
+    """
+    Allows the user to create an encounter.
+
+    This function provides the user with options to quickly make an encounter or create a detailed encounter.
+    If the user selects a quick make, they can specify the number of creatures and their attributes interactively.
+    If the user selects a detailed encounter, they can choose creatures from an existing list stored in a JSON file.
+
+    Returns:
+        None
+    """
+    # Function code goes here
     print("Would you like to quick-make an encounter or be more detailed? (Q for quick make, D for detailed.) \nNote: Quick made encounters will not be saved.")
     encounter_type = input("")
     if encounter_type.lower() == "q":
@@ -154,16 +191,32 @@ def e_make():
                 user_objects = json.load(file)
             creature_list = user_objects["creature_list"]
             creature_amount = user_objects["creature_amount"]
+            encounter_list = user_objects["encounter_list"]
+            encounter_amount = user_objects["encounter_amount"]
             non_added_list = creature_list.copy()
             encounter = []
-            in_encounter = 0
             while True:
+                print(f"Creatures added: {encounter}")
                 print("Which creature would you like to add to the encounter? Integer only!")
-                for creature in range(len(non_added_list)):
-                    print(f"{str(creature+1)}: Name: {non_added_list[str(creature+1)][0]}, Health: {non_added_list[str(creature+1)][1]}, Initiative: {non_added_list[str(creature+1)][2]}, Notes: {non_added_list[str(creature+1)][3]}")
+                print("0: End")
+                for creature_key in non_added_list:
+                    creature = non_added_list[creature_key]
+                    print(f"{creature_key}: Name: {creature[0]}, Health: {creature[1]}, Initiative: {creature[2]}, Notes: {creature[3]}")
                 chosen = int(input())
-                encounter[in_encounter] = non_added_list(chosen-1)
-                non_added_list.remove(chosen-1)
+                if chosen == 0:
+                    print("Done")
+                    break
+                encounter.append(non_added_list[str(chosen)]) 
+                non_added_list.pop(str(chosen))
+                if len(non_added_list) == 0:
+                    print("All creatures added!")
+                    break
+            encounter_amount += 1
+            encounter_list[encounter_amount] = encounter
+            user_objects["encounter_amount"] = encounter_amount
+            user_objects["encounter_list"] = encounter_list
+            with open(f"{username}.json", "w") as file:
+                json.dump(user_objects, file)
         else:
             print("Sorry, but it seems you have no creatures, please make some and then try again.")
 
@@ -175,10 +228,61 @@ def e_edit():
     print("")
 #Using a made encounter
 def e_use():
-    print("")
+    if f"{username}.json" in files:
+        with open(f"{username}.json", "r") as file:
+            user_objects = json.load(file)
+        encounter_list = user_objects["encounter_list"]
+        encounter_amount = user_objects["encounter_amount"]
+        if encounter_amount == 0:
+            print("Sorry, but we could not find any encounters in your file. \nTry making an encounter.")
+        else:
+            print("Which encounter would you like to use:")
+            for object in encounter_list:
+                print(f"{str(object)}: {encounter_list[object]}")
+            encounter_choice = input("")
+            encounter = encounter_list[encounter_choice]
+            initiative_tracking = {}
+            for creature in encounter:
+                name = creature[0]
+                initiative = random.randint(1,20) + creature[1]
+                while initiative in initiative_tracking:
+                    initiative = random.randint(1,20) + creature[1]
+                health = creature[2]
+                notes = creature[3]
+                initiative_tracking[initiative] = [creature]
+
+            playing = True
+            while playing:
+                for key in sorted(initiative_tracking.keys(), reverse=True):
+                    if playing == False:
+                        break
+                    active = True
+                    while active:
+                        print(f"It is {initiative_tracking[key][0][0]}'s turn! \nWhat would you like to do? \nCommands:(H: Heal Self, D: Damage, N: Next, E: End)")
+                        action = input("")
+                        if action.lower() == "h":
+                            print(f"{initiative_tracking[key][0][0]} is at {initiative_tracking[key][0][2]} health.")
+                            print("For how much would you like heal for? (Integers only!)")
+                            health_healed = int(input(""))
+                            initiative_tracking[key][0][2] = str(health_healed + int(initiative_tracking[key][0][2]))
+                            print(f"{initiative_tracking[key][0][0]} is now at {initiative_tracking[key][0][2]} health.")
+                        elif action.lower() == "d":
+                            print(f"{initiative_tracking[key][0][0]} is at {initiative_tracking[key][0][2]} health.")
+                            print("For how much damage would you like to do? (Integers only!)")
+                            damage_dealt = int(input(""))
+                            initiative_tracking[key][0][2] = str(int(initiative_tracking[key][0][2]) - damage_dealt)
+                            print(f"{initiative_tracking[key][0][0]} is now at {initiative_tracking[key][0][2]} health.")
+                        elif action.lower() == "n":
+                            active = False
+                        elif action.lower() == "e":
+                            playing = False
+                            active = False
+    else:
+        print("Sorry, but we could not find a file with your name. \nTry making a creature.")
+
 
 #Start of code:
-os.chdir("People")
+os.chdir("Users")
 files = os.listdir('.')
 files.remove("null..txt")
 username = "Username####"
@@ -198,7 +302,7 @@ if choice1.lower() == "c":
     else:
         print("I'm sorry, but it seems there was an error. Please restart the program.")
 elif choice1.lower() == "e":
-    print("Next choose between making, copying, editing, or using an encounter.\n(Type M, C, E, or U)")
+    print("Next choose between making or using an encounter.\n(Type M or U)")
     choice2 = input("")
     if choice2.lower() == "m":
         e_make()
