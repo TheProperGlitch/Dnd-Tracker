@@ -3,6 +3,9 @@ import json
 import random
 #Showing all creatures:
 def c_show():
+    """
+    Allows the user show all of their creatures.
+    """
     if f"{username}.json" in files:
         with open(f"{username}.json", "r") as file:
             user_objects = json.load(file)
@@ -138,6 +141,9 @@ def c_copy():
 
 #Showing all encounters
 def e_show():
+    """
+    Allows the user show all of their encounters.
+    """
     if f"{username}.json" in files:
         with open(f"{username}.json", "r") as file:
             user_objects = json.load(file)
