@@ -281,10 +281,20 @@ def e_use():
         print("Sorry, but we could not find a file with your name. \nTry making a creature.")
 
 
+#Start of code:try:
 #Start of code:
-os.chdir("Users")
+try:
+    os.chdir("Users")
+except FileNotFoundError:
+    print("DIRECTORY NOT FOUND")
+    os.mkdir("Users")
+    os.chdir("Users")
 files = os.listdir('.')
-files.remove("null..txt")
+#This is here to remove the file added to github by the repo
+try:
+    files.remove("null..txt")
+except ValueError:
+    print("FILE NOT FOUND. SKIPPING...")
 username = "Username####"
 user_objects = {}
 # ---Grab the discord user's ID and save it to the variable "username"---
