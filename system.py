@@ -294,7 +294,6 @@ def e_use():
         print("Sorry, but we could not find a file with your name. \nTry making a creature.")
 
 
-#Start of code:try:
 #Start of code:
 try:
     os.chdir("Users")
