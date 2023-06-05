@@ -135,6 +135,21 @@ def c_copy():
 
     else:
         print("Sorry, but it seems that you have no creatures to copy.")
+
+#Showing all encounters
+def e_show():
+    if f"{username}.json" in files:
+        with open(f"{username}.json", "r") as file:
+            user_objects = json.load(file)
+        encounter_list = user_objects["encounter_list"]
+        encounter_amount = user_objects["encounter_amount"]
+        if encounter_amount == 0:
+            print("Sorry, but we could not find any encounters in your file. \nTry making an encounter.")
+        else:
+            print("Which encounter would you like to use:")
+            for object in encounter_list:
+                print(f"{str(object)}: {encounter_list[object]}")
+
 #Making an encounter
 def e_make():
     """
@@ -317,7 +332,7 @@ if choice1.lower() == "c":
     choice2 = input("")
     if choice2.lower() == "s":
         c_show()
-    if choice2.lower() == "e":
+    elif choice2.lower() == "e":
         c_edit()
     elif choice2.lower() == "n":
         c_make()
@@ -328,7 +343,9 @@ if choice1.lower() == "c":
 elif choice1.lower() == "e":
     print("Next choose between making or using an encounter.\n(Type M or U)")
     choice2 = input("")
-    if choice2.lower() == "m":
+    if choice2.lower() == "s":
+        e_show()
+    elif choice2.lower() == "m":
         e_make()
     elif choice2.lower() == "c":
         e_copy()
