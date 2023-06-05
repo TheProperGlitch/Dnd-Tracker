@@ -1,6 +1,19 @@
 import os
 import json
 import random
+#Showing all creatures:
+def c_show():
+    if f"{username}.json" in files:
+        with open(f"{username}.json", "r") as file:
+            user_objects = json.load(file)
+        if user_objects["creature_amount"] == 0:
+            print("Sorry, but it seems that you have no creatures to look at.")
+        else:
+            creature_amount = user_objects["creature_amount"]
+            creature_list = user_objects["creature_list"]
+            for i in range(creature_amount):
+                print(f"{i+1}: Name:{creature_list[str(i+1)][0]}, Health:{creature_list[str(i+1)][1]}, Dex Modifier:{creature_list[str(i+1)][2]} \n Notes:{creature_list[str(i+1)][3]}")
+
 #Editting a creature:
 def c_edit():
     """
@@ -301,8 +314,10 @@ user_objects = {}
 print("Hello and welcome to the AV D&D Tracker. Start off by picking between managing creatures/characters or encounters. \n(C for Creatures, E for Encounters)")
 choice1 = input("")
 if choice1.lower() == "c":
-    print("Next choose between editing an existing creature, copying one that is made, or making a new one.\n(E for Edit, C for Copy, N for New)")
+    print("Next choose between editing an existing creature, copying one that is made, or making a new one.\n(S for Show, E for Edit, C for Copy, N for New)")
     choice2 = input("")
+    if choice2.lower() == "s":
+        c_show()
     if choice2.lower() == "e":
         c_edit()
     elif choice2.lower() == "n":
