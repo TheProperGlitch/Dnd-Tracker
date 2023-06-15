@@ -1,6 +1,4 @@
-import os
-import json
-import random
+import os, json, random
 #Showing all creatures:
 def c_show():
     """
